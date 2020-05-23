@@ -60,7 +60,7 @@ def genericHandler(evt) {
 
     def params = [
     	uri: "https://${hass_host}:${hass_port}",
-        path: "/api/events/smartthings.button",
+        path: "/api/events/tekhass.button",
         body: json,
         headers: [
             "Authorization": "Bearer ${hass_token}"
