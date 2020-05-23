@@ -45,16 +45,16 @@ def doSubscriptions() {
 }
 
 def genericHandler(evt) {
-    def buttonNumber = parseJson(evt.data)
+	def buttonNumber = parseJson(evt.data)
     def json = "{"
     json += "\"name\":\"${evt.name}\","
     json += "\"event\":\"${evt.value}\","
-    json += "\"buttonNumber\":\"${buttonNumber.buttonNumber}\","
-    json += "\"displayName\":\"${evt.displayName}\","
+    json += "\"button_number\":\"${buttonNumber.buttonNumber}\","
+    json += "\"display_name\":\"${evt.displayName}\","
     json += "\"device\":\"${evt.device}\","
-    json += "\"deviceId\":\"${evt.deviceId}\","
+    json += "\"device_id\":\"${evt.deviceId}\","
     json += "\"description\":\"${evt.description}\","
-    json += "\"descriptionText\":\"${evt.descriptionText}\""
+    json += "\"description_text\":\"${evt.descriptionText}\""
     json += "}"
     log.debug("JSON: ${json}")
 
@@ -63,7 +63,7 @@ def genericHandler(evt) {
         path: "/api/events/tekhass.button",
         body: json,
         headers: [
-            "Authorization": "Bearer ${hass_token}"
+        	"Authorization": "Bearer ${hass_token}"
         ]
     ]
 
