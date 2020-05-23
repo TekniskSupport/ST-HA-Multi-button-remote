@@ -2,7 +2,7 @@
 smartthings + home asisstant
 
 ### Why?
-The built in Smartthings<-->home-assistant bridge does not send button nubmer to home assistant, so multi button devices won't work as expected within HA.
+The built in Smartthings<-->home-assistant bridge does not send button number to home assistant, so multi button devices won't work as expected within HA.
 
 ### How
 I push data to the home-assistant api to fire an event, including button number
