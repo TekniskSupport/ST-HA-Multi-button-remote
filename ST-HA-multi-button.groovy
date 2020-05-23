@@ -15,8 +15,8 @@ definition(
 
 
 preferences {
- 	section("Track these Buttons:") {
-    	input "buttons", "capability.button", multiple: true, required: true
+        section("Track these Buttons:") {
+        input "buttons", "capability.button", multiple: true, required: true
     }
     section ("hass Server") {
         input "hass_host", "text", title: "Home assistant Hostname/IP"
@@ -26,27 +26,26 @@ preferences {
 }
 
 def installed() {
-	log.debug "Installed with settings: ${settings}"
-	initialize()
+    log.debug "Installed with settings: ${settings}"
+    initialize()
 }
 
 def updated() {
-	log.debug "Updated with settings: ${settings}"
-	unsubscribe()
-	initialize()
+    log.debug "Updated with settings: ${settings}"
+    unsubscribe()
+    initialize()
 }
 
 def initialize() {
-	doSubscriptions()
+    doSubscriptions()
 }
 
 def doSubscriptions() {
-	  subscribe(buttons, "button", genericHandler)
+    subscribe(buttons, "button", genericHandler)
 }
 
 def genericHandler(evt) {
-
-	def buttonNumber = parseJson(evt.data)
+    def buttonNumber = parseJson(evt.data)
     def json = "{"
     json += "\"name\":\"${evt.name}\","
     json += "\"event\":\"${evt.value}\","
@@ -64,7 +63,7 @@ def genericHandler(evt) {
         path: "/api/events/smartthings.button",
         body: json,
         headers: [
-        	"Authorization": "Bearer ${hass_token}"
+            "Authorization": "Bearer ${hass_token}"
         ]
     ]
 
