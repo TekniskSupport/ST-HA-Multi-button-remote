@@ -9,9 +9,9 @@ definition(
     author: "Iesus",
     description: "send SmartThings pushbutton events to home assistant",
     category: "Convenience",
-    iconUrl: "https://cdn.multitronic.fi/images/prod/E/B/WXKG02LM-1.jpg",
-    iconX2Url: "https://cdn.multitronic.fi/images/prod/E/B/WXKG02LM-1.jpg",
-    iconX3Url: "https://cdn.multitronic.fi/images/prod/E/B/WXKG02LM-1.jpg")
+    iconUrl: "http://teknisksupport.se/aqara_wall_switch_double_rocker_1.jpg",
+    iconX2Url: "http://teknisksupport.se/aqara_wall_switch_double_rocker_1.jpg",
+    iconX3Url: "http://teknisksupport.se/aqara_wall_switch_double_rocker_1.jpg")
 
 
 preferences {
