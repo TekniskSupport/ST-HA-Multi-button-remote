@@ -15,7 +15,7 @@ definition(
 
 
 preferences {
-        section("Track these Buttons:") {
+    section("Track these Buttons:") {
         input "buttons", "capability.button", multiple: true, required: true
     }
     section ("hass Server") {
@@ -45,7 +45,7 @@ def doSubscriptions() {
 }
 
 def genericHandler(evt) {
-	def buttonNumber = parseJson(evt.data)
+    def buttonNumber = parseJson(evt.data)
     def json = "{"
     json += "\"name\":\"${evt.name}\","
     json += "\"event\":\"${evt.value}\","
