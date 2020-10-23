@@ -15,8 +15,11 @@ definition(
 
 
 preferences {
-    section("Track these Buttons:") {
+     section("Track these Buttons:") {
         input "buttons", "capability.button", multiple: true, required: true
+    }
+     section("Track these Actuators:") {
+        input "actuators", "capability.actuator", multiple: true, required: false
     }
     section ("hass Server") {
         input "hass_host", "text", title: "Home assistant Hostname/IP"
@@ -41,7 +44,8 @@ def initialize() {
 }
 
 def doSubscriptions() {
-    subscribe(buttons, "button", genericHandler)
+      subscribe(buttons, "button", genericHandler)
+      subscribe(actuators, "actuator", genericHandler)
 }
 
 def genericHandler(evt) {
@@ -58,24 +62,35 @@ def genericHandler(evt) {
     json += "}"
     log.debug("JSON: ${json}")
 
-    def params = [
-    	uri: "https://${hass_host}:${hass_port}",
-        path: "/api/events/tekhass.button",
-        body: json,
-        headers: [
-        	"Authorization": "Bearer ${hass_token}"
-        ]
-    ]
+    def request = sendCommand(json)
+}
 
+private sendCommand(payload) {
+    def path = "/api/events/tekhass.button"
+    def method = "POST"
+    def headers = [:] 
+
+    headers.put("HOST", "${hass_host}:${hass_port}")
+    headers.put("Content-Type", "application/json")
+    headers.put("Authorization", "Bearer ${hass_token}") 
+    
     try {
-        httpPostJson(params) { resp ->
-            resp.headers.each {
-                log.debug "${it.name} : ${it.value}"
-            }
-            log.debug "response contentType: ${resp.contentType}"
-        }
-    } catch (e) {
-    	log.debug params
-        log.debug "something went wrong: $e"
+        def result = new physicalgraph.device.HubAction(
+            [
+                method: method,
+                path: path,
+                body: payload,
+                headers: headers
+            ], null, [callback: parse]
+        )
+        
+        return sendHubCommand(result)
+    } catch (Exception e) {
+        log.debug "Hit Exception $e on $hubAction"
     }
 }
+
+def parse(result) {
+    log.debug(result.json)
+}
+
